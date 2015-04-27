@@ -11,3 +11,7 @@ socket.io example chat app
 3. commit your changes: git commit -m 'Add some feature'
 4. push to the branch: git push origin my-new-feature
 5. submit a pull request :D
+
+## license
+
+aychaaa
