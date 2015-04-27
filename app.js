@@ -3,15 +3,16 @@
  */
 // Include Required Libraries
 var io = require('socket.io').listen(8084);
-var loki = require('lokijs');
-var db = new loki('db.json');
+var low = require('lowdb');
+var db = new low('db.json', {
+  autosave: true
+});
 var express = require('express');
-
+//
+var db_name = "messages";
 // Init Cache Datas
 var clients = {};
 var client_ids = {};
-// Init DB
-var undeliveredMessages = db.addCollection("undeliveredMessages");
 // Init Express
 var app = express();
 // Configure Express
@@ -28,6 +29,15 @@ var isExistUser = function (nick) {
     }
   }
   return false;
+};
+// Save Message DB
+var saveMessage = function (obj) {
+  db(db_name).push({
+    from: obj.from,
+    message: obj.message,
+    to: obj.to,
+    received: obj.received
+  });
 };
 // Socket Connection Event
 io.sockets.on('connection', function (socket) {
@@ -49,12 +59,12 @@ io.sockets.on('connection', function (socket) {
     // Send New Users Status
     io.sockets.emit("updateUsers", client_ids);
     // Fetch Logon User Undelivered Messages
-    var messages = undeliveredMessages.find({to: nick});
+    var messages = db(db_name).filter({to: nick, received: false});
     // Send Undelivered Messages
     io.sockets.emit("checkUndeliveredMessages", messages);
     // Delete Sent Undelivered Messages from DB
     for (var i = 0; i < messages.length; i++) {
-      undeliveredMessages.remove(messages[i]);
+      db(db_name).chain().find(messages[i]).assign({received: true}).value();
     }
   });
   // Catch Sending Message Event
@@ -68,12 +78,20 @@ io.sockets.on('connection', function (socket) {
           nick: client_ids[obj.from_id].nick,
           message: obj.message
         });
-      } else {
-        // Save Message to DB for Offline Target User
-        undeliveredMessages.insert({
+        // Save Message
+        saveMessage({
           from: client_ids[obj.from_id].nick,
           message: obj.message,
-          to: client_ids[obj.target_ids[i]].nick
+          to: client_ids[obj.target_ids[i]].nick,
+          received: true
+        });
+      } else {
+        // Save Message to DB for Offline Target User
+        saveMessage({
+          from: client_ids[obj.from_id].nick,
+          message: obj.message,
+          to: client_ids[obj.target_ids[i]].nick,
+          received: false
         });
       }
     }

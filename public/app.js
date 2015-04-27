@@ -1,4 +1,10 @@
 $(document).ready(function () {
+  $(document).keydown(function (e) {
+    if (e.keyCode == 27) {
+      window.location.reload();
+    }
+  });
+
   $("#chat_area").hide();
 
   $('#nick').keypress(function (event) {

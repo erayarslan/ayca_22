@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "dependencies": {
     "socket.io": "*",
-    "lokijs": "*",
+    "lowdb": "*",
     "express": "~3.3.4"
   }
 }
