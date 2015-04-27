@@ -1,0 +1,46 @@
+body {
+    font-family: "century gothic";
+    margin: 0px;
+    color: #fff;
+    background-color: #000;
+    position: absolute;
+    width: 96%;
+    height: 96%;
+    left: 20px;
+    right: 20px;
+    top: 10px;
+}
+
+#nick_display {
+    padding: 2px;
+    color: #000000;
+    text-decoration: none;
+    background: #ffffff;
+    font-size: 18px;
+}
+
+a {
+    padding: 1px;
+    color: #000;
+    text-decoration: none;
+    background: #fff;
+    cursor: pointer;
+}
+
+a:hover, a.hover {
+    color: #fff;
+    text-decoration: none;
+    background: #000;
+}
+
+#users li {
+    display: inline;
+    list-style-type: none;
+    margin-right: 24px;
+    font-size: 18px;
+}
+
+#messages li {
+    list-style-type: none;
+    margin-bottom: 8px;
+}
