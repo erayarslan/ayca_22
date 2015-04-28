@@ -4,6 +4,29 @@
 
 socket.io example chat app
 
+## db.json
+
+```json
+
+{
+  "messages": [
+    {
+      "from": "eray",
+      "message": "merhaba (görülen geçmiş zaman)",
+      "to": "ahmet",
+      "received": true
+    },
+    {
+      "from": "ahmet",
+      "message": "balım :* (siklenmeyen geçmiş zaman)",
+      "to": "ayça",
+      "received": false
+    }
+  ]
+}
+
+```
+
 ## contributing
 
 1. fork it!
