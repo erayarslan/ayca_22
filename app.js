@@ -1,15 +1,21 @@
 /**
  * @server app
+ * @project ayca_22
+ * @author Eray Arslan
+ * @web http://eray.ninja
+ * @wtf <3
  */
+//
+var db_name = "messages";
+var express_port = 4141;
+var socketio_port = 8084;
 // Include Required Libraries
-var io = require('socket.io').listen(8084);
+var io = require('socket.io').listen(socketio_port);
 var low = require('lowdb');
 var db = new low('db.json', {
   autosave: true
 });
 var express = require('express');
-//
-var db_name = "messages";
 // Init Cache Datas
 var clients = {};
 var client_ids = {};
@@ -20,7 +26,7 @@ app.configure(function () {
   app.use(express.static(__dirname + '/public'));
 });
 // Start Express
-app.listen(process.env.PORT || 4141);
+app.listen(express_port);
 // Check Exist User with Offline Status
 var isExistUser = function (nick) {
   for (var key in client_ids) {
