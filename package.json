@@ -1,9 +1,13 @@
 {
+  "name": "ayca_22",
   "private": true,
   "version": "0.0.1",
   "dependencies": {
     "socket.io": "*",
     "lowdb": "*",
     "express": "~3.3.4"
+  },
+  "scripts": {
+    "start": "node app.js"
   }
 }
