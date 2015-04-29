@@ -37,4 +37,4 @@ socket.io example chat app
 
 ## license
 
-aychaaa
+mit
