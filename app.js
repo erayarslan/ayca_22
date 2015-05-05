@@ -12,9 +12,7 @@ var socketio_port = 8084;
 // Include Required Libraries
 var io = require('socket.io').listen(socketio_port);
 var low = require('lowdb');
-var db = new low('db.json', {
-  autosave: true
-});
+var db = new low('db.json', {autosave: true});
 var express = require('express');
 // Init Cache Datas
 var clients = {};
