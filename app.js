@@ -65,7 +65,7 @@ io.sockets.on('connection', function (socket) {
     // Fetch Logon User Undelivered Messages
     var messages = db(db_name).filter({to: nick, received: false});
     // Send Undelivered Messages
-    io.sockets.emit("checkUndeliveredMessages", messages);
+    socket.emit("checkUndeliveredMessages", messages);
     // Delete Sent Undelivered Messages from DB
     for (var i = 0; i < messages.length; i++) {
       db(db_name).chain().find(messages[i]).assign({received: true}).value();
