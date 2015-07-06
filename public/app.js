@@ -25,6 +25,11 @@ $(document).ready(function () {
       }
     });
 
+    socket.on("boom", function (data) {
+      alert(data.message);
+      window.location.reload();
+    });
+
     socket.on("checkUndeliveredMessages", function (data) {
       for (var i = 0; i < data.length; i++) {
         $("#messages").append('<li><span id="nick_display">' + data[i].from + "</span> " + data[i].message + '</li>');

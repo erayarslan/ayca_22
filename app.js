@@ -43,10 +43,29 @@ var saveMessage = function (obj) {
     received: obj.received
   });
 };
+// Exist Online User?!
+var existOnlineUser = function (nick) {
+  for (var key in client_ids) {
+    if (client_ids[key].nick === nick && client_ids[key].online === true) {
+      return key;
+    }
+  }
+  return false;
+};
 // Socket Connection Event
 io.sockets.on('connection', function (socket) {
   // New User Event
   socket.on('newUser', function (nick) {
+    // Check Exist Online User
+    var existOnlineResult = existOnlineUser(nick);
+    if (existOnlineResult !== false) {
+      socket.emit("boom", {
+        status: "error",
+        message: "exist user!"
+      });
+
+      return;
+    }
     // Check Exist User
     var existResult = isExistUser(nick);
 
